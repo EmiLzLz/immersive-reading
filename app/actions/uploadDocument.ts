@@ -8,65 +8,41 @@
  */
 "use server";
 import { supabase } from "@/lib/supabase";
-import * as pdfjsLib from "pdfjs-dist";
 
-//deactivate worker
-  pdfjsLib.GlobalWorkerOptions.workerSrc = '';
-
-export async function processPdf(formData: FormData) {
-  const file = formData.get("file") as File;
-  
-  if (file.size > 10 * 1024 * 1024) {
-    return { error: "The file exceed thew max size. 10MB" };
+export async function uploadDocument(
+  title: string,
+  content: string,
+  metadata: { numPages: number },
+) {
+  if (!title) {
+    return { error: "The file doesnt have a title" };
   }
-
-  if (!file || file.type !== "application/pdf") {
-    return { error: "The file is not a valid PDF" };
+  if (!content) {
+    return { error: "The file doesn't have a description" };
+  }
+  if (!metadata) {
+    return { error: "The file doesn't have metadata" };
   }
 
   try {
-    // convert file to Buffer
-    const arrayBuffer = await file.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
-
-    // load PDF
-    const loadingTask = pdfjsLib.getDocument({
-      data: new Uint8Array(buffer),
-      useWorkerFetch: false,
-      isEvalSupported: false,
-    });
-
-    const pdf = await loadingTask.promise;
-    let extractedText = "";
-
-    if (pdf.numPages > 500) {
-      return { error: "The PDF exceed the max pages (500 pages)" };
-    }
-
-    // iterate pages
-    for (let i = 1; i <= pdf.numPages; i++) {
-      const page = await pdf.getPage(i);
-      const textContent = await page.getTextContent();
-      const pageText = textContent.items.map((item: any) => item.str).join(" ");
-      extractedText += pageText + " ";
-    }
-
-    // save in supabase
-    const extractedData = {
-      title: file.name.replace(/\.pdf$/i, ""),
-      content: extractedText.trim(),
-      metadata: { numPages: pdf.numPages},
-    };
-
+    // Insert a supabase
     const { data, error } = await supabase
       .from("documents")
-      .insert([extractedData])
+      .insert([{ title, content, metadata }])
       .select();
 
-    if (error) throw error;
+    if (error) {
+      console.error("Supabase error:", error);
+      return { error: "Failed to save document" };
+    }
+
+    if (!data || data.length === 0) {
+      return { error: "No data returned from database" };
+    }
+
     return { success: true, id: data[0].id };
   } catch (error) {
-    console.error("Fail processing PDF: ", error);
-    return { error: "Fail reading PDF content" };
+    console.error("Error uploading: ", error);
+    return { error: "Failed to save document" };
   }
 }
