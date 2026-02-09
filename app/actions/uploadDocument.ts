@@ -1,10 +1,19 @@
 /**
- * The function `processPdf` processes a PDF file by extracting text content from its pages and saving
- * the extracted data in a Supabase database.
- * @param {FormData} formData - The `processPdf` function you provided processes a PDF file uploaded
- * via a form and extracts text content from it. Here's a breakdown of the function:
- * @returns The `processPdf` function returns an object with different properties based on the
- * processing result:
+ * The function `uploadDocument` uploads a document with a title, content, and metadata to a Supabase
+ * database, handling error cases appropriately.
+ * @param {string} title - The `title` parameter is a string that represents the title of the document
+ * being uploaded. It is a required field and must be provided when calling the `uploadDocument`
+ * function.
+ * @param {string} content - The `content` parameter in the `uploadDocument` function represents the
+ * description or text content of the document that you want to upload. It is a required parameter and
+ * should contain the textual content of the document you are uploading. Make sure to provide a valid
+ * string for the `content` parameter when calling
+ * @param metadata - The `metadata` parameter in the `uploadDocument` function is an object that should
+ * contain information about the document, specifically the number of pages in the document. It is
+ * structured as follows:
+ * @returns The `uploadDocument` function returns an object with either a success message and the ID of
+ * the uploaded document if the upload was successful, or an error message if there was an issue during
+ * the upload process.
  */
 "use server";
 import { supabase } from "@/lib/supabase";

@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { processPdf } from "./actions/uploadDocument";
 import { useRouter } from "next/navigation";
+import { pdfParser } from "@/lib/pdfParser";
+import { uploadDocument } from "./actions/uploadDocument";
 
 export default function Home() {
   const [loading, setLoading] = useState<boolean | undefined>(false);
@@ -15,16 +16,36 @@ export default function Home() {
     setErr(null);
     try {
       const formData = new FormData(e.currentTarget);
-      const response = await processPdf(formData);
+      const file = formData.get("file") as File;
 
-      if (response.error) {
-        setErr(response.error);
+      if (!file) {
+        setErr("Please, upload a PDF file");
         return;
       }
 
-      if (response.success && response.id) {
-        router.push(`/document/${response.id}`);
+      if (file.size > 10 * 1024 * 1024) {
+        setErr("The file exceeds the maximum size: 10MB");
+        return;
       }
+
+      if (file.type !== "application/pdf") {
+        setErr("You can upload PDF files only");
+        return;
+      }
+
+      const response = await pdfParser(formData);
+      const documentUpload = await uploadDocument(
+        response.title,
+        response.content,
+        response.metadata,
+      );
+
+      if (documentUpload.error) {
+        setErr(documentUpload.error);
+        return;
+      }
+
+      router.push(`/document/${documentUpload.id}`);
     } catch (error) {
       setErr("Something went wrong");
     } finally {
