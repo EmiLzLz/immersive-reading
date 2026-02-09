@@ -1,8 +1,12 @@
+"use client";
+
 import * as pdfjsLib from "pdfjs-dist";
 
 export async function pdfParser(formData: FormData) {
-  pdfjsLib.GlobalWorkerOptions.workerSrc =
-    "//mozilla.github.io/pdf.js/build/pdf.worker.mjs";
+  pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
+    "pdfjs-dist/build/pdf.worker.min.mjs",
+    import.meta.url,
+  ).toString();
 
   const file = formData.get("file") as File;
 

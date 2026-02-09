@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { pdfParser } from "@/lib/pdfParser";
 import { uploadDocument } from "./actions/uploadDocument";
 
 export default function Home() {
@@ -11,6 +10,7 @@ export default function Home() {
   const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    const { pdfParser } = await import("@/lib/pdfParser");
     e.preventDefault();
     setLoading(true);
     setErr(null);
