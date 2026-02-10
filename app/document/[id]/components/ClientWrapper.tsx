@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import ReadingControls from "./ReadingControls";
 
 interface ClientWrapperProps {
   title: string;
