@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import ReadingControls from "./ReadingControls";
+import DocumentContent from "./DocumentContent";
 
 interface ClientWrapperProps {
   title: string;
