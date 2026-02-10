@@ -1,9 +1,7 @@
+import { ReadingSettings } from "@/lib/reading-types";
+
 interface ReadingControlsProps {
-  readingSettings: {
-    font: "serif" | "sans-serif";
-    width: "narrow" | "normal" | "wide";
-    fontSize: number;
-  };
+  readingSettings: ReadingSettings;
   onUpdateFont: (newFont: "sans-serif" | "serif") => void;
   onUpdateWidth: (newSize: "narrow" | "normal" | "wide") => void;
   onUpdateFontSize: (increment: number) => void;

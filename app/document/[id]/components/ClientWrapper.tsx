@@ -3,16 +3,11 @@
 import { useState } from "react";
 import ReadingControls from "./ReadingControls";
 import DocumentContent from "./DocumentContent";
+import { ReadingSettings} from "@/lib/reading-types";
 
 interface ClientWrapperProps {
   title: string;
   content: string;
-}
-
-interface ReadingSettings {
-  font: "serif" | "sans-serif";
-  width: "narrow" | "normal" | "wide";
-  fontSize: number;
 }
 
 const ClientWrapper = ({ title, content }: ClientWrapperProps) => {

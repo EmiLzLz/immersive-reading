@@ -1,11 +1,9 @@
+import { ReadingSettings } from "@/lib/reading-types";
+
 interface DocumentContentProps {
   title: string;
   content: string;
-  readingSettings: {
-    font: "serif" | "sans-serif";
-    width: "narrow" | "normal" | "wide";
-    fontSize: number;
-  };
+  readingSettings: ReadingSettings
 }
 
 const DocumentContent = ({
