@@ -1,6 +1,7 @@
 import { supabase } from "@/lib/supabase";
 import { Document } from "@/lib/types";
 import { notFound } from "next/navigation";
+import ClientWrapper from "./components/ClientWrapper";
 
 type PageProps = {
   params: Promise<{ id: string }>;
@@ -21,10 +22,10 @@ export default async function DocumentPage({ params }: PageProps) {
 
   return (
     <main>
-      <h1>{supabaseFetch.data.title}</h1>
-      <div className="content-container">
-        <p>{supabaseFetch.data.content}</p>
-      </div>
+      <ClientWrapper
+        title={supabaseFetch.data.title}
+        content={supabaseFetch.data.content}
+      />
     </main>
   );
 }
