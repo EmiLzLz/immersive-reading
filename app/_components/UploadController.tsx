@@ -1,3 +1,5 @@
+"use client"
+
 import { useState } from "react";
 import UploadFAB from "./UploadFAB";
 import UploadModal from "./UploadModal";
