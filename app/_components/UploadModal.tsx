@@ -14,12 +14,12 @@ function UploadModal({ onClose }: UploadModalProps) {
   const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    const { pdfParser } = await import("@/lib/pdfParser");
     e.preventDefault();
+const formData = new FormData(e.currentTarget);
+const { pdfParser } = await import("@/lib/pdfParser");
     setLoading(true);
     setErr(null);
     try {
-      const formData = new FormData(e.currentTarget);
       const file = formData.get("file") as File;
 
       if (!file) {
@@ -37,13 +37,16 @@ function UploadModal({ onClose }: UploadModalProps) {
         return;
       }
 
+      console.log("1. before pdfParser");
       const response = await pdfParser(formData);
+      console.log("2. after pdfParser", response);
       const documentUpload = await uploadDocument(
         response.title,
         response.content,
         response.metadata,
       );
 
+      console.log("3. after uploadDocument", documentUpload);
       if (documentUpload.error) {
         setErr(documentUpload.error);
         return;
@@ -55,8 +58,8 @@ function UploadModal({ onClose }: UploadModalProps) {
       }
 
       router.push(`/document/${documentUpload.id}`);
-
     } catch (error) {
+      console.log("ERROR:", error);
       setErr("Something went wrong");
     } finally {
       setLoading(false);
