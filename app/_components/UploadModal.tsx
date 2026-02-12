@@ -1,4 +1,7 @@
+"use client";
+
 import { uploadDocument } from "@/app/actions/uploadDocument";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 interface UploadModalProps {
@@ -8,6 +11,7 @@ interface UploadModalProps {
 function UploadModal({ onClose }: UploadModalProps) {
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<string | null>(null);
+  const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     const { pdfParser } = await import("@/lib/pdfParser");
@@ -45,8 +49,13 @@ function UploadModal({ onClose }: UploadModalProps) {
         return;
       }
 
-      onClose();
-      
+      if (!documentUpload.id) {
+        setErr("Something went wrong");
+        return;
+      }
+
+      router.push(`/document/${documentUpload.id}`);
+
     } catch (error) {
       setErr("Something went wrong");
     } finally {
