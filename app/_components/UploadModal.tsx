@@ -15,8 +15,8 @@ function UploadModal({ onClose }: UploadModalProps) {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-const formData = new FormData(e.currentTarget);
-const { pdfParser } = await import("@/lib/pdfParser");
+    const formData = new FormData(e.currentTarget);
+    const { pdfParser } = await import("@/lib/pdfParser");
     setLoading(true);
     setErr(null);
     try {
@@ -37,16 +37,13 @@ const { pdfParser } = await import("@/lib/pdfParser");
         return;
       }
 
-      console.log("1. before pdfParser");
       const response = await pdfParser(formData);
-      console.log("2. after pdfParser", response);
       const documentUpload = await uploadDocument(
         response.title,
         response.content,
         response.metadata,
       );
 
-      console.log("3. after uploadDocument", documentUpload);
       if (documentUpload.error) {
         setErr(documentUpload.error);
         return;
@@ -59,7 +56,6 @@ const { pdfParser } = await import("@/lib/pdfParser");
 
       router.push(`/document/${documentUpload.id}`);
     } catch (error) {
-      console.log("ERROR:", error);
       setErr("Something went wrong");
     } finally {
       setLoading(false);
@@ -74,6 +70,9 @@ const { pdfParser } = await import("@/lib/pdfParser");
         <input type="submit" value="Upload PDF" disabled={loading} />
         {err && <div>{err}</div>}
       </form>
+      <button className="close-modal-btn" onClick={onClose}>
+        CLOSE POPUP
+      </button>
     </div>
   );
 }
