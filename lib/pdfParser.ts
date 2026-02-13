@@ -1,6 +1,7 @@
 "use client";
 
 import * as pdfjsLib from "pdfjs-dist";
+import type { TextItem, TextMarkedContent } from "pdfjs-dist/types/src/display/api";
 
 export async function pdfParser(formData: FormData) {
   pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
@@ -14,17 +15,35 @@ export async function pdfParser(formData: FormData) {
 
   const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
 
-  let fullText = "";
+  // type guard
+  function isTextItem(item: TextItem | TextMarkedContent): item is TextItem {
+    return (item as TextItem).str !== undefined;
+  }
+
+  let completeText = "";
 
   for (let i = 1; i <= pdf.numPages; i++) {
     const page = await pdf.getPage(i);
     const textContent = await page.getTextContent();
-    const pageText = textContent.items.map((item: any) => item.str).join(" ");
-    fullText += pageText + "\n\n";
+    const items = textContent.items.filter(isTextItem)
+    let lastY;
+    let pageText = "";
+
+    for(const item of items){
+      const currentY = item.transform[5];
+
+      if(lastY !== undefined && Math.abs(lastY - currentY) > 2){
+        pageText += "\n"
+      }
+
+      pageText += item.str;
+      lastY = currentY;
+    }
+    completeText += pageText + "\n\n";
   }
 
   return {
-    content: fullText,
+    content: completeText,
     title: file.name.replace(/\.pdf$/i, ""),
     metadata: { numPages: pdf.numPages },
   };
