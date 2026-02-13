@@ -1,9 +1,10 @@
+// DocumentContent.tsx
 import { ReadingSettings } from "@/lib/reading-types";
 
 interface DocumentContentProps {
   title: string;
   content: string;
-  readingSettings: ReadingSettings
+  readingSettings: ReadingSettings;
 }
 
 const DocumentContent = ({
@@ -12,20 +13,30 @@ const DocumentContent = ({
   readingSettings,
 }: DocumentContentProps) => {
   const widthClasses = {
-    narrow: "max-w-2xl",
-    normal: "max-w-4xl",
-    wide: "max-w-6xl",
+    narrow: "max-w-xl",
+    normal: "max-w-3xl",
+    wide: "max-w-5xl",
   };
 
-  const fontTypes =
-    readingSettings.font === "serif" ? "font-serif" : "font-sans";
+  const fontFamily =
+    readingSettings.font === "serif" 
+      ? '"Lora", serif' 
+      : '"Source Sans 3", sans-serif';
 
   return (
-    <div className={`content-container ${widthClasses[readingSettings.width]}`}>
-      <h1 className={fontTypes} style={{ fontSize: readingSettings.fontSize }}>
+    <div
+      className={`mx-auto px-6 py-12 ${widthClasses[readingSettings.width]}`}
+    >
+      <h1
+        className={`mb-8 font-bold leading-tight`}
+        style={{ fontSize: `${readingSettings.fontSize * 1.5}px`, fontFamily }}
+      >
         {title}
       </h1>
-      <p className={fontTypes} style={{ fontSize: readingSettings.fontSize }}>
+      <p
+        className={`whitespace-pre-wrap `}
+        style={{ fontSize: `${readingSettings.fontSize}px`, fontFamily }}
+      >
         {content}
       </p>
     </div>

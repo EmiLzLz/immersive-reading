@@ -3,7 +3,7 @@ import UploadController from "./_components/UploadController";
 export default function Home() {
   return (
     <>
-      <main className="relative min-h-screen bg-surface-base">
+      <div className="relative min-h-screen bg-surface-base">
         <div className="flex min-h-screen flex-col items-center justify-center px-6">
           <div className="max-w-2xl text-center">
             <h1 className="mb-4 text-xl md:text-5xl font-bold tracking-tight">
@@ -35,7 +35,7 @@ export default function Home() {
             </p>
           </div>
         </div>
-      </main>
+      </div>
       <UploadController />
     </>
   );

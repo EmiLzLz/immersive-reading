@@ -2,9 +2,8 @@
 
 @theme {
   /* ── Fonts ── */
-  --font-serif: var(--font-lora);
-  --font-sans: var(--font-source-sans);
-
+  --font-serif: "Lora", serif;
+  --font-sans: "Source Sans 3", sans-serif;
   /* ── Brand colors ── */
   --color-surface-base: #F2EDE8;
   --color-surface-raised: #E8E2DA;
@@ -22,7 +21,6 @@
 body {
   background-color: var(--color-surface-base);
   color: var(--color-text-primary);
-  font-family: var(--font-source-sans), sans-serif;
 }
 
 h1, h2, h3, h4 {

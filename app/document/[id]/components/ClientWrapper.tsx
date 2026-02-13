@@ -1,9 +1,10 @@
+// ClientWrapper.tsx — sin cambios de funcionalidad
 "use client";
 
 import { useState } from "react";
 import ReadingControls from "./ReadingControls";
 import DocumentContent from "./DocumentContent";
-import { ReadingSettings} from "@/lib/reading-types";
+import { ReadingSettings } from "@/lib/reading-types";
 
 interface ClientWrapperProps {
   title: string;
@@ -33,7 +34,7 @@ const ClientWrapper = ({ title, content }: ClientWrapperProps) => {
   };
 
   return (
-    <section>
+    <section className="pt-20">
       <ReadingControls
         readingSettings={readingSettings}
         onUpdateFont={updateFont}

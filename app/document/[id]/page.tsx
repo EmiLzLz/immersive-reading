@@ -1,3 +1,4 @@
+// document/[id]/page.tsx
 import { supabase } from "@/lib/supabase";
 import { Document } from "@/lib/types";
 import { notFound } from "next/navigation";
@@ -21,7 +22,7 @@ export default async function DocumentPage({ params }: PageProps) {
   }
 
   return (
-    <main>
+    <main className="min-h-screen bg-surface-base">
       <ClientWrapper
         title={supabaseFetch.data.title}
         content={supabaseFetch.data.content}
