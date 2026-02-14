@@ -29,7 +29,7 @@ const ReadingControls = ({
           className={`${baseBtn} ${readingSettings.font === "sans-serif" ? activeClass : ""}`}
         >
           <Type size={16} aria-hidden="true" />
-          Sans-serif
+          <span className="hidden sm:inline">Sans-serif</span>
         </button>
         <button
           onClick={() => onUpdateFont("serif")}
@@ -38,7 +38,7 @@ const ReadingControls = ({
           className={`${baseBtn} ${readingSettings.font === "serif" ? activeClass : ""}`}
         >
           <Type size={16} aria-hidden="true" />
-          Serif
+          <span className="hidden sm:inline">Serif</span>
         </button>
       </div>
 
@@ -64,9 +64,9 @@ const ReadingControls = ({
         </button>
       </div>
 
-      <div className="h-5 w-px bg-surface-raised" aria-hidden="true" />
+      <div className="h-5 w-px bg-surface-raised hidden sm:block" aria-hidden="true" />
 
-      <div className="flex items-center gap-1">
+      <div className="items-center gap-1 hidden sm:flex">
         <button
           onClick={() => onUpdateWidth("narrow")}
           aria-label="Narrow width"
@@ -74,7 +74,7 @@ const ReadingControls = ({
           className={`${baseBtn} ${readingSettings.width === "narrow" ? activeClass : ""}`}
         >
           <AlignCenter size={16} aria-hidden="true" />
-          Narrow
+          <span className="hidden sm:inline">Narrow</span>
         </button>
         <button
           onClick={() => onUpdateWidth("normal")}
@@ -83,7 +83,7 @@ const ReadingControls = ({
           className={`${baseBtn} ${readingSettings.width === "normal" ? activeClass : ""}`}
         >
           <AlignJustify size={16} aria-hidden="true" />
-          Normal
+          <span className="hidden sm:inline">Normal</span>
         </button>
         <button
           onClick={() => onUpdateWidth("wide")}
@@ -92,7 +92,7 @@ const ReadingControls = ({
           className={`${baseBtn} ${readingSettings.width === "wide" ? activeClass : ""}`}
         >
           <AlignLeft size={16} aria-hidden="true" />
-          Wide
+          <span className="hidden sm:inline">Wide</span>
         </button>
       </div>
     </div>
