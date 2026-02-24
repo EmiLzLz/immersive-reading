@@ -1,8 +1,9 @@
-"use client"
+"use client";
 
 import { useActionState, useEffect } from "react";
 import { signIn } from "../actions/auth";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 function loginPage() {
   const router = useRouter();
@@ -10,12 +11,14 @@ function loginPage() {
 
   useEffect(() => {
     if (state?.success) {
+      toast.success("User login successfully");
       router.push("/library");
     }
   }, [state?.success, router]);
 
   useEffect(() => {
     if (state?.error) {
+      toast.error(state.error);
     }
   }, [state?.error]);
 

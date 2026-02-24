@@ -3,6 +3,7 @@
 import { useActionState, useEffect } from "react";
 import { signUp } from "../actions/auth";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 function registerPage() {
   const router = useRouter();
@@ -10,15 +11,16 @@ function registerPage() {
 
   useEffect(() => {
     if (state?.success) {
+      toast.success("Check your email to confirm your account please");
       router.push("/check-email");
     }
   }, [state?.success, router]);
 
   useEffect(() => {
-    if(state?.error){
-        
+    if (state?.error) {
+      toast.error(state.error);
     }
-  }, [state?.error])
+  }, [state?.error]);
 
   return (
     <div>
