@@ -1,24 +1,23 @@
-"use client";
+"use client"
 
 import { useActionState, useEffect } from "react";
-import { signUp } from "../actions/auth";
+import { signIn } from "../actions/auth";
 import { useRouter } from "next/navigation";
 
-function registerPage() {
+function loginPage() {
   const router = useRouter();
-  const [state, formAction, isPending] = useActionState(signUp, undefined);
+  const [state, formAction, isPending] = useActionState(signIn, undefined);
 
   useEffect(() => {
     if (state?.success) {
-      router.push("/check-email");
+      router.push("/library");
     }
   }, [state?.success, router]);
 
   useEffect(() => {
-    if(state?.error){
-        
+    if (state?.error) {
     }
-  }, [state?.error])
+  }, [state?.error]);
 
   return (
     <div>
@@ -37,11 +36,11 @@ function registerPage() {
         />
 
         <button type="submit" disabled={isPending}>
-          {isPending ? "Loading" : "Sign Up"}
+          {isPending ? "Loading" : "Sign In"}
         </button>
       </form>
     </div>
   );
 }
 
-export default registerPage;
+export default loginPage;
