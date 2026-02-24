@@ -12,7 +12,7 @@ function registerPage() {
   useEffect(() => {
     if (state?.success) {
       toast.success("Check your email to confirm your account please");
-      router.push("/check-email");
+      router.push("/checkEmail");
     }
   }, [state?.success, router]);
 

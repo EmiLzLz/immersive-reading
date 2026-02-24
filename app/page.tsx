@@ -1,3 +1,4 @@
+import Link from "next/link";
 import UploadController from "./_components/UploadController";
 
 export default function Home() {
@@ -36,6 +37,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <Link href="/register">REGISTER</Link>
       <UploadController />
     </>
   );
