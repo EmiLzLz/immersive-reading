@@ -18,7 +18,7 @@ export async function signUp(prevState: any, formData: FormData) {
 }
 
 export async function signIn(prevState: any, formData: FormData) {
-    const email = formData.get("email") as string;
+  const email = formData.get("email") as string;
   const password = formData.get("password") as string;
   const supabase = await createClientSS();
 
@@ -32,4 +32,16 @@ export async function signIn(prevState: any, formData: FormData) {
   }
 
   return { success: true };
+}
+
+export async function signOut() {
+  const supabase = await createClientSS();
+
+  const { error } = await supabase.auth.signOut();
+
+  if (error) {
+    redirect("/")
+  }
+
+  redirect("/?logged_out=true");
 }
