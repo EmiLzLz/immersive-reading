@@ -1,9 +1,19 @@
 import Link from "next/link";
 import UploadController from "./_components/UploadController";
+import LogoutToast from "./_components/LogoutToast";
 
-export default function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
+  
+  const params = await searchParams;
+  const loggedOut = params.logged_out === "true";
+
   return (
     <>
+      <LogoutToast loggedOut={loggedOut} />
       <div className="relative min-h-screen bg-surface-base">
         <div className="flex min-h-screen flex-col items-center justify-center px-6">
           <div className="max-w-2xl text-center">
