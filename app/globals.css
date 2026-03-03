@@ -51,3 +51,22 @@ a:focus-visible {
   outline-offset: 3px;
   border-radius: 2px;
 }
+
+/* Header styles */
+.nav-link {
+  text-decoration: none !important;
+}
+
+.nav-link:hover {
+  text-decoration: none !important;
+}
+
+.nav-link-cta {
+  text-decoration: none;
+  color: #F2EDE8 !important;
+}
+
+.nav-link-cta:hover {
+  text-decoration: none;
+  color: #F2EDE8 !important;
+}
