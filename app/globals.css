@@ -143,6 +143,19 @@ a:focus-visible {
   box-shadow: 0 0 0 3px rgba(95, 138, 126, 0.15);
 }
 
+/* login page styles  */
+.auth-page-reverse {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 768px) {
+  .auth-page-reverse {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Auth responsive */
 @media (max-width: 768px) {
   .auth-page {
