@@ -52,7 +52,7 @@ function UploadModal({ onClose }: UploadModalProps) {
         return;
       }
 
-      router.push(`/document/${documentUpload.id}`);
+      router.push(`/library`);
     } catch {
       setErr("Something went wrong");
     } finally {

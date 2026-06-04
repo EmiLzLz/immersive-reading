@@ -16,13 +16,15 @@
  * the upload process.
  */
 "use server";
-import { supabase } from "@/lib/supabase";
+import { createClientSS } from "@/lib/supabase/server";
 
 export async function uploadDocument(
   title: string,
   content: string,
   metadata: { numPages: number },
 ) {
+  const supabase = await createClientSS();
+
   if (!title) {
     return { error: "The file doesnt have a title" };
   }
@@ -34,10 +36,27 @@ export async function uploadDocument(
   }
 
   try {
-    // Insert a supabase
-    const { data, error } = await supabase
+    // get user
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      return { success: true, saved: false };
+    }
+
+    //insert user id
+    const { data } = await supabase
       .from("documents")
-      .insert([{ title, content, metadata }])
+      .insert([
+        {
+          user_id: user?.id,
+          title: title,
+          content: content,
+          metadata: metadata,
+        },
+      ])
       .select();
 
     if (error) {
