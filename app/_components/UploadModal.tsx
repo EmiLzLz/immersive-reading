@@ -47,6 +47,13 @@ function UploadModal({ onClose }: UploadModalProps) {
         setErr(documentUpload.error);
         return;
       }
+
+      if(documentUpload.saved === false){
+        onClose()
+        router.push("/")
+        return
+      }
+
       if (!documentUpload.id) {
         setErr("Something went wrong");
         return;

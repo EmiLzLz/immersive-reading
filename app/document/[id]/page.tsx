@@ -1,8 +1,8 @@
 // document/[id]/page.tsx
-import { supabase } from "@/lib/supabase";
 import { Document } from "@/lib/types";
 import { notFound } from "next/navigation";
 import ClientWrapper from "./components/ClientWrapper";
+import { createClientSS } from "@/lib/supabase/server";
 
 type PageProps = {
   params: Promise<{ id: string }>;
@@ -10,6 +10,7 @@ type PageProps = {
 
 export default async function DocumentPage({ params }: PageProps) {
   const { id } = await params;
+  const supabase = await createClientSS()
 
   const supabaseFetch = await supabase
     .from("documents")
