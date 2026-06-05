@@ -11,8 +11,10 @@ async function LibraryPage() {
 
   if (error || !user) {
     return (
-      <div>
-        <h1>There wass an error, please log out and try again</h1>
+      <div className="flex min-h-screen items-center justify-center">
+        <p className="text-text-secondary">
+          There was an error, please log out and try again.
+        </p>
       </div>
     );
   }
@@ -23,16 +25,32 @@ async function LibraryPage() {
     .eq("user_id", user?.id);
 
   return (
-    <div>
-      <h1>Your Library</h1>
-      <div className="info">{user.email}</div>
-      <div className="documents-grid">
-        {!documents || documents.length === 0 ? (
-          <h2>You don't have documents yet</h2>
-        ) : (
-          documents.map((document) => <Link href={`/document/${document.id}`} key={document.id}>{document.title}</Link>)
-        )}
+    <div className="min-h-screen px-8 py-16 max-w-6xl mx-auto">
+      <div className="mb-12">
+        <h1 className="text-4xl font-bold mb-2">Your Library</h1>
+        <p className="text-sm text-text-secondary">{user.email}</p>
       </div>
+
+      {!documents || documents.length === 0 ? (
+        <p className="text-text-secondary">You don't have documents yet.</p>
+      ) : (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+          {documents.map((document) => (
+            <Link
+              href={`/document/${document.id}`}
+              key={document.id}
+              className="book-card"
+            >
+              <span className="book-title">{document.title}</span>
+              {document.metadata?.numPages && (
+                <span className="book-pages">
+                  {document.metadata.numPages} pages
+                </span>
+              )}
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
