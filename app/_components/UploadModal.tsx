@@ -48,10 +48,12 @@ function UploadModal({ onClose }: UploadModalProps) {
         return;
       }
 
-      if(documentUpload.saved === false){
-        onClose()
-        router.push("/")
-        return
+      if (documentUpload.saved === false) {
+        onClose();
+        sessionStorage.setItem("title", response.title);
+        sessionStorage.setItem("content", response.content);
+        router.push("/read");
+        return;
       }
 
       if (!documentUpload.id) {
