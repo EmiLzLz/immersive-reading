@@ -5,6 +5,7 @@ import { signUp } from "../actions/auth";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Link from "next/link";
+import { Loader2 } from "lucide-react";
 
 function RegisterPage() {
   const router = useRouter();
@@ -85,10 +86,14 @@ function RegisterPage() {
             <button
               type="submit"
               disabled={isPending}
-              className="mt-2 w-full py-2.5 rounded-sm text-sm font-medium bg-[#5F8A7E] hover:bg-[#4A6E64] transition-colors duration-150 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+              className="flex items-center justify-center mt-2 w-full py-2.5 rounded-sm text-sm font-medium bg-[#5F8A7E] hover:bg-[#4A6E64] transition-colors duration-150 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
               style={{ color: "#F2EDE8" }}
             >
-              {isPending ? "Creating account..." : "Create Account"}
+              {isPending ? (
+                <Loader2 className="animate-spin" size={18} />
+              ) : (
+                "Create Account"
+              )}
             </button>
           </form>
 

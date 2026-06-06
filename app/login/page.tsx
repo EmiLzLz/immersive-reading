@@ -5,6 +5,7 @@ import { signIn } from "../actions/auth";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Link from "next/link";
+import { Loader2 } from "lucide-react";
 
 function LoginPage() {
   const router = useRouter();
@@ -25,11 +26,9 @@ function LoginPage() {
 
   return (
     <div className="auth-page-reverse">
-
       {/* Left panel — form */}
       <div className="auth-right">
         <div className="w-full max-w-sm">
-
           <div className="mb-8">
             <h1 className="text-2xl font-bold font-serif tracking-tight text-text-primary">
               Welcome back
@@ -41,7 +40,10 @@ function LoginPage() {
 
           <form action={formAction} className="flex flex-col gap-5">
             <div className="flex flex-col gap-1.5">
-              <label htmlFor="email" className="text-sm font-medium text-text-secondary">
+              <label
+                htmlFor="email"
+                className="text-sm font-medium text-text-secondary"
+              >
                 Email
               </label>
               <input
@@ -55,7 +57,10 @@ function LoginPage() {
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label htmlFor="password" className="text-sm font-medium text-text-secondary">
+              <label
+                htmlFor="password"
+                className="text-sm font-medium text-text-secondary"
+              >
                 Password
               </label>
               <input
@@ -71,10 +76,14 @@ function LoginPage() {
             <button
               type="submit"
               disabled={isPending}
-              className="mt-2 w-full py-2.5 rounded-sm text-sm font-medium bg-[#5F8A7E] hover:bg-[#4A6E64] transition-colors duration-150 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+              className="flex items-center justify-center mt-2 w-full py-2.5 rounded-sm text-sm font-medium bg-[#5F8A7E] hover:bg-[#4A6E64] transition-colors duration-150 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
               style={{ color: "#F2EDE8" }}
             >
-              {isPending ? "Signing in..." : "Log In"}
+              {isPending ? (
+                <Loader2 className="animate-spin" size={18} />
+              ) : (
+                "Log In"
+              )}
             </button>
           </form>
 
@@ -84,7 +93,6 @@ function LoginPage() {
               Create Account
             </Link>
           </p>
-
         </div>
       </div>
 
@@ -92,11 +100,11 @@ function LoginPage() {
       <div className="auth-left">
         <p className="auth-left-title">FOLIO</p>
         <p className="auth-left-tagline">
-          Your library is<br />
+          Your library is
+          <br />
           waiting for you.
         </p>
       </div>
-
     </div>
   );
 }

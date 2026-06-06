@@ -2,7 +2,7 @@
 
 import { uploadDocument } from "@/app/actions/uploadDocument";
 import { useRouter } from "next/navigation";
-import { X } from "lucide-react";
+import { Loader2, X } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 
 interface UploadModalProps {
@@ -117,7 +117,11 @@ function UploadModal({ onClose }: UploadModalProps) {
             disabled={loading}
             className="flex h-11 w-full items-center justify-center rounded-lg bg-accent text-sm font-semibold text-white transition-colors duration-150 hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {loading ? "Uploading..." : "Upload PDF"}
+            {loading ? (
+              <Loader2 className="animate-spin" size={18} />
+            ) : (
+              "Upload PDF"
+            )}
           </button>
         </form>
       </div>
