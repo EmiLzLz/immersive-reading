@@ -1,10 +1,11 @@
-// ClientWrapper.tsx — sin cambios de funcionalidad
 "use client";
 
 import { useState } from "react";
 import ReadingControls from "./ReadingControls";
 import DocumentContent from "./DocumentContent";
 import { ReadingSettings } from "@/lib/reading-types";
+import { BookOpen, Home } from "lucide-react";
+import Link from "next/link";
 
 interface ClientWrapperProps {
   title: string;
@@ -41,6 +42,16 @@ const ClientWrapper = ({ title, content }: ClientWrapperProps) => {
         onUpdateWidth={updateWidth}
         onUpdateFontSize={updateFontSize}
       />
+      <nav className="reading-subnav">
+        <Link href="/" className="reading-subnav-link">
+          <Home size={14} aria-hidden="true" />
+          Home
+        </Link>
+        <Link href="/library" className="reading-subnav-link">
+          <BookOpen size={14} aria-hidden="true" />
+          My Library
+        </Link>
+      </nav>
       <DocumentContent
         title={title}
         content={content}
