@@ -12,7 +12,7 @@ export async function signUp(prevState: any, formData: FormData) {
     email,
     password,
     options: {
-      emailRedirectTo: "https://folio-ir-delta.vercel.app/auth/confirm",
+      emailRedirectTo: "https://folio-ir-delta.vercel.app",
     },
   });
 
