@@ -8,7 +8,13 @@ export async function signUp(prevState: any, formData: FormData) {
   const password = formData.get("password") as string;
   const supabase = await createClientSS();
 
-  const { error } = await supabase.auth.signUp({ email, password });
+  const { error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      emailRedirectTo: "https://folio-ir-delta.vercel.app/auth/confirm",
+    },
+  });
 
   if (error) {
     return { error: error.message };
@@ -40,7 +46,7 @@ export async function signOut() {
   const { error } = await supabase.auth.signOut();
 
   if (error) {
-    redirect("/")
+    redirect("/");
   }
 
   redirect("/?logged_out=true");
